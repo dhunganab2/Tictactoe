@@ -228,13 +228,13 @@ class AlphaBetaTicTacToe:
                     ai_turn = True
         
         print("\n" + "=" * 50)
-        print("📊 SIMULATION RESULTS (Alpha-Beta Optimized)")
+        print(" SIMULATION RESULTS (Alpha-Beta Optimized)")
         print("=" * 50)
         print(f"Total Games:      {max_games}")
         print(f"AI Wins:          {ai_wins} ({(ai_wins/max_games)*100:.1f}%)")
         print(f"Random Wins:      {random_wins} ({(random_wins/max_games)*100:.1f}%)")
         print(f"Draws:            {draws} ({(draws/max_games)*100:.1f}%)")
-        print(f"Avg States Check: {total_states // (ai_wins + draws + random_wins)} per game (Efficiency Metric)")
+        print(f"Avg Nodes Explored: {total_states // max(1, ai_wins + draws + random_wins)} per game")
         print("=" * 50)
 
 

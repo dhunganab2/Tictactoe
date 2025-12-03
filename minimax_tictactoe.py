@@ -9,6 +9,7 @@ class MinimaxTicTacToe:
         self.board = [" " for _ in range(9)]
         self.human = "O"
         self.ai = "X"
+        self.nodes_evaluated = 0
 
     def reset_board(self):
         self.board = [" " for _ in range(9)]
@@ -50,6 +51,7 @@ class MinimaxTicTacToe:
         Scores: +10 for AI win, -10 for Human win, 0 for Draw.
         Depth is used to prefer winning sooner or losing later.
         """
+        self.nodes_evaluated += 1
         
         # 1. Base Cases (Terminal States)
         if self.is_winner(self.ai, board):
@@ -83,6 +85,7 @@ class MinimaxTicTacToe:
         """
         best_score = -float('inf')
         best_move = None
+        self.nodes_evaluated = 0
         
         available_moves = self.get_available_moves(self.board)
         
@@ -167,6 +170,7 @@ class MinimaxTicTacToe:
         random_wins = 0
         draws = 0
         total_moves = 0
+        total_nodes = 0
 
         for game_num in range(1, max_games + 1):
             self.reset_board()
@@ -179,6 +183,7 @@ class MinimaxTicTacToe:
                 if ai_turn:
                     # AI Turn - Minimax (silent)
                     move = self.get_minimax_move(verbose=False)
+                    total_nodes += self.nodes_evaluated
                     self.board[move] = self.ai
                     
                     if self.is_winner(self.ai, self.board):
@@ -213,6 +218,7 @@ class MinimaxTicTacToe:
         print(f"AI Wins:     {ai_wins} ({(ai_wins/max_games)*100:.1f}%)")
         print(f"Random Wins: {random_wins} ({(random_wins/max_games)*100:.1f}%)")
         print(f"Draws:       {draws} ({(draws/max_games)*100:.1f}%)")
+        print(f"Avg Nodes Explored:   {total_nodes // max(1, ai_wins + draws + random_wins)} per game")
         print("=" * 40)
 
 

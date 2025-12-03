@@ -9,6 +9,7 @@ class HeuristicTicTacToe:
         self.board = [" " for _ in range(9)]
         self.human = "O"
         self.ai = "X"
+        self.nodes_evaluated = 0
 
     def reset_board(self):
         self.board = [" " for _ in range(9)]
@@ -55,6 +56,7 @@ class HeuristicTicTacToe:
             print("AI Thinking (Heuristic Scores):")
 
         for move in available_moves:
+            self.nodes_evaluated += 1
             score = 0
 
             # Create a temporary copy of the board to test the move
@@ -151,6 +153,7 @@ class HeuristicTicTacToe:
         random_wins = 0
         draws = 0
         total_moves = 0
+        total_nodes = 0
 
         for game_num in range(1, max_games + 1):
             self.reset_board()
@@ -163,7 +166,9 @@ class HeuristicTicTacToe:
             while True:
                 if ai_turn:
                     # AI Turn - Use Heuristic but suppress detailed logs for speed
+                    self.nodes_evaluated = 0
                     move = self.get_heuristic_move(verbose=False)
+                    total_nodes += self.nodes_evaluated
                     self.board[move] = self.ai
                     total_moves += 1
                     
@@ -200,6 +205,7 @@ class HeuristicTicTacToe:
         print(f"AI Wins:     {ai_wins} ({(ai_wins/max_games)*100:.1f}%)")
         print(f"Random Wins: {random_wins} ({(random_wins/max_games)*100:.1f}%)")
         print(f"Draws:       {draws} ({(draws/max_games)*100:.1f}%)")
+        print(f"Avg Nodes Explpred:   {total_nodes // max(1, ai_wins + draws + random_wins)} per game")
         print("=" * 40)
 
 
