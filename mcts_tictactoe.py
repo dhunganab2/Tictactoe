@@ -260,7 +260,8 @@ if __name__ == "__main__":
         print("2. Play 4x4 (Large)")
         print("3. Play 5x5 (Super)")
         print("4. Run Simulation (3x3)")
-        print("5. Exit")
+        print("5. Run Simulation (4x4)")
+        print("6. Exit")
         
         choice = input("Enter choice: ")
         
@@ -281,5 +282,12 @@ if __name__ == "__main__":
             except ValueError:
                 pass
         elif choice == "5":
+            game = MCTSTicTacToe(size=4)
+            try:
+                num = int(input("Games to simulate: "))
+                game.simulate(max_games=num)
+            except ValueError:
+                pass
+        elif choice == "6":
             sys.exit()
 
